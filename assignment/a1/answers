@@ -98,19 +98,18 @@ neural_network_basics_e_3_2: [d0]
 tensorflow_1_1: 0
 
 # Question 2 (/2): What's the derivative of relu(z) with respect to z if z = 5
-tensorflow_1_2: 0
+tensorflow_1_2: 1
 
 # Question 3 (/2): Why do you still use a sigmoid at the top of the binary classification network?
 # (This question is multiple choice.  Delete all but the correct answer).
 tensorflow_1_3: 
  - Its range matches what is allowed for a probability.
- - Sigmoid is convenient, but you lose nothing by using a Relu or Tanh
 
 # Question 4 (/2): For the sequential model, what is the minimum number of hidden layers with the same number of neurons in each you can get away with and still achieve the desired loss on the training set?
-tensorflow_1_4: 0
+tensorflow_1_4: 2
 
 # Question 5 (/2): What is the smallest number of neurons you can use in a layer in the network with a large number of layers and still get the desired loss on the training set? (Assume all layers have the same number of neurons.)
-tensorflow_1_5: 0
+tensorflow_1_5: 5
 
 # Question 6 (/2): What is the accuracy score you get after training the functional model for 10 epochs?
-tensorflow_1_6: 0.00000
+tensorflow_1_6: 0.9964
