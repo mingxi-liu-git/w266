@@ -3,4 +3,4 @@
 **/__pycache__
 **/tf_summaries/
 **/AUTH_TOKEN
-**/data/
+**/*.DS_Store
