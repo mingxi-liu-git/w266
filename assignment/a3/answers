@@ -135,23 +135,23 @@ summarization_test_1_1_5:
 
 # Question 2.1 (/1): What num_beams value gives you the most readable output?
 summarization_test_2_2_1: 
-- your answer
+- 8
 
 # Question 2.2 (/1): Which no_repeat_ngram_size gives the most readable output?
 summarization_test_2_2_2: 
-- your answer
+- 2
 
 # Question 2.3 (/1): What min_length value gives you the most readable output?
 summarization_test_2_2_3: 
-- your answer
+- 5
 
 # Question 2.4 (/1): Which max_new_tokens value gives the most readable output?
 summarization_test_2_2_4: 
-- your answer
+- 64
 
 # Question 2.5 (/1): What is the ROUGE-L score associated with your most readable candidate?
 summarization_test_2_2_5: 
-- your answer
+- 0.76
 
 
 # ------------------------------------------------------------------
@@ -160,23 +160,23 @@ summarization_test_2_2_5:
 
 # Question 3.1 (/1): What num_beams value gives you the most readable output?
 summarization_test_3_3_1: 
-- your answer
+- 8
 
 # Question 3.2 (/1): Which no_repeat_ngram_size gives the most readable output?
 summarization_test_3_3_2: 
-- your answer
+- 2
 
 # Question 3.3 (/1): What min_length value gives you the most readable output?
 summarization_test_3_3_3: 
-- your answer
+- 5
 
 # Question 3.4 (/1): Which max_new_tokens value gives the most readable output?
 summarization_test_3_3_4: 
-- your answer
+- 100
 
 # Question 3.5 (/1): What is the ROUGE-L score associated with your most readable candidate?
 summarization_test_3_3_5: 
-- your answer
+- 0.29473
 
 
 
@@ -193,8 +193,8 @@ summarization_test_3_3_5:
 
 # Question 1.1a (/4): What is the first sentence that returns the correct answer at least 7 out of 10 times? Write your answer in the answer slot.
 question_answering_test_1_1_1a: 
-- your answer
+- The trade war between US and <extra_id_0> started in 2018.
 
 # Question 1.1b (/4): What is the second sentence that returns the correct answer at least 7 out of 10 times? Write your answer in the answer slot.
 question_answering_test_1_1_1b: 
-- your answer
+- <extra_id_0> is an Asian country.
