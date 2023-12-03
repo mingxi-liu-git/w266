@@ -62,6 +62,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
+ 3-5 sentences
 This document is a supplement to the general instructions for *ACL authors. It contains instructions for using the \LaTeX{} style file for ACL 2023.
 The document itself conforms to its own specifications, and is, therefore, an example of what your manuscript should look like.
 These instructions should be used both for papers submitted for review and for final versions of accepted papers.
@@ -165,11 +166,11 @@ These instructions should be used both for papers submitted for review and for f
 % \end{quote}
 % where \verb|<dim>| is replaced with a length. Do not set this length smaller than 5 cm.
 
-\section{Introduction}
+\section{Introduction 1 page}
 
 News-based stock price prediction usually consists of two tasks: sentiment analysis of the news and predicting the price movement based on the sentiment. With the help of all kinds of pre-trained BERT models, sentiment analysis has become less challenging. However, accurate sentiment analysis does not necessarily bring accurate stock price prediction. This paper compares several predicting methods based on either the sentiment analysis results or the pooler output of a BERT model pre-trained on financial news and articles. The best result comes from the model which has a simplified transformer structure and combines historical news and stock price returns. 
 
-\section{Background}
+\section{Background 1/2 page}
 
 It's no news that news is used to predict stock price movements(e.g. \citealp{Tetlock:2007}). Since it's an interdisciplinary task involving NLP and financial engineering, the solution evolves with the progress on either side. On the NLP side, the essential problem is how to extract numeric information from the text of news. Early work used the bag-of-words as text representation to perform sentiment analysis for the news. For example, \citet{Schumaker:2009} examines a predictive machine learning approach for financial news article analysis using several different textual representations: bag of words, noun phrases, and named entities. Later work adopted word embeddings such as Word2Vec.\citet{Hu:2018} propose a Hybrid Attention Networks to predict the stock trend based on the sequence of recent related news and employ self-paced learning for effective and efficient learning. They use a pre-trained Word2Vec embedding layer to calculate the embedded vector for each word and then average all the words' vectors to construct a news vector. Other techniques include character-based neural language model \citep{dos-santos-pinheiro-dras-2017-stock} and topic modeling \citep{nguyen-shirai-2015-topic}. Since BERT became the state-of-art NLP model, researchers have been trying to apply it to the task above(see \citet{sawhney-etal-2021-quantitative} and \citet{tsutsumi-utsuro-2022-detecting}). 
 
@@ -184,24 +185,66 @@ Focusing on the NLP part instead of the financial engineering part, this researc
 \end{enumerate}
 
 
-\section{Methods}
+\section{Methods 2-3 pages}
+
+\subsection{Problem Statement}
+
+For stock prediction problems, the ultimate goal is to generate a signal S which represents the ratio of stock holding value to the investor's total assets. We constrain $S \in [-1,1]$, which means short-selling is allowed but leverage is not.
+
+Although the task can be viewed as a classification problem if we only predict whether the stock price is going up or down, however, the long-term uptrend of S\&P 500 index suggests there are more "up" days than "down" days, thus the samples are imbalanced. Some previous research tries to avoid this problem by using other thresholds instead of zero \citep{xu-cohen-2018-stock}. However, the choices of these thresholds are arbitrary and are difficult to justify. For example, if we set a thresholds at 0 and 1, is it reasonable to label 0.99 and 1.01 to different classes while 0.01 and 0.99 the same class? Essentially, the returns of stocks are continuous rather than discrete, so we prefer to view it as a regression problem.
+
+In our context, the problem is how to use the news as input to generate a continuous signal S, where $S \in [-1,1]$. This enables us to directly simulate the investment returns by multiply S with stock returns. The benefit of this treatment is that we can use investment performance metrics such as Sharpe Ratio in addition to statistical metrics such as correlation and MSE to evaluate the predictions.
 
 
 \subsection{Data}
 
-This paper experiments on predicting the daily change of S&P 500 Index based on financial headline reports of Reuters. In order to get as many samples as possible, two sources of news data are combined together. One is from \citet{ding2014}, which covers the period from October 2006 to November 2013, totally 105,343 pieces. This time span witnesses a severe economic downturn in 2007-2010, followed by a modest recovery in 2011-2013. The other is provided by Kaggle, which includes 32,770 Reuters news from March 2018 to July 2020, which also covers a volatile period during Cov-19. Since both sources are from Reuters and are comparable in frequency and length, we think it's reasonable to combine them together. The gap between 2013 to 2018 is not a big issue if we use the first source as training set and the second validation/test set. 
+This paper experiments on predicting the daily change of S\&P 500 Index based on financial headline reports of Reuters. In order to get as many samples as possible, two sources of news data are combined together. One is from \citet{ding-etal-2014-using}, which covers the period from October 2006 to November 2013, totally 105,343 pieces. This time span witnesses a severe economic downturn in 2007-2010, followed by a modest recovery in 2011-2013. The other is provided by Kaggle, which includes 32,770 Reuters news from March 2018 to July 2020, which also covers a volatile period during Cov-19. Since both sources are from Reuters and are comparable in frequency and length, we think it's reasonable to combine them together. The gap between 2013 to 2018 is not a big issue if we use the first source as training set and the second validation/test set. 
 
 The lead paragraph (normally the first paragraph) of each news is selected as the input. It typically contains 30~50 words, providing more complete information than the title which contains less than 10 words and requring less computing resources than the full content.
 
-The S&P 500 Index price data comes from Yahoo Finance. It contains daily series cover both periods above. The log returns of the index is used as the predicting traget. The size of the labels is 2,393 after aligning the dates with the news data. 
+The S\&P 500 Index price data comes from Yahoo Finance. It contains a daily series covering both periods above. The log-returns of the index is used as the predicting target. The size of the labels is 2,393 after aligning the dates with the news data. 
 
-Note that the number of news is more than 50 times of the number of labels. This is because there are usually 40 to 60 news per day. Therefore, we need to aggregate the information of news of the same day. Different methods will be dicussed in the following sections. 
+Note that the number of news is more than 50 times of the number of labels. This is because there are usually 40 to 60 news per day. Therefore, we need to aggregate the information of news of the same day. Different methods will be discussed in the following sections. 
 
 \subsection{Experiments}
 
-In this section, we compare five methods of extracting and processing the information from news text. One of them applies lexicon-based sentiment analysis, and the rest are based on the sentiment output or pooler output of FinBert, a BERT model pre-trained on financial contents.
+In this section, we compare five methods of extracting and processing the information from news text. Their major differences are listed in Table \ref{tab:experiment_details}
 
-\subsubsection{Lexicon-based}
+\begin{table*}[t]
+  \centering
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  Model & NLP Model & Output from NLP model & Aggregation method \\
+  \hline
+  Lexicon Senti & Vader (lexicon) & Prob(P)-Prob(N) & Intraday simple average \\
+  FinBERT Senti & FinBERT & Prob(P)-Prob(N) & Intraday simple average \\
+  FB Avg & FinBERT & Pooler & Intraday simple average \\
+  FB Attention & FinBERT & Pooler & Intraday attention\\
+  FB Transformer & FinBERT & Pooler &  Intra-\&inter-day attention\\
+  \hline
+  \end{tabular}
+  \caption{Major settings of the Models}
+  \label{tab:experiment_details}
+\end{table*}
+
+\textbf{Baseline: lexicon-based sentiment analysis.} We use a lexicon-based sentiment analysis similar to \citet{hao2021} as the baseline. The NLTK pacakge provides a version of VADER \citep{Hutto_Gilbert_2014} sentiment analysis. It generates the probabilities of Positive, Negative, and Neutral. We take Prob(Positive)-Prob(Negative) and average the values within the same day as the signal $S$, which automatically satisfies $S \in [-1,1]$.
+
+\textbf{FinBERT Senti.} FinBERT is a BERT model pre-trained on financial communication text \citep{yang2020finbert}. Previous research shows this type of pre-trained BERT models outperforms bag-of-word or rule-based models \citep{yang2020finbert,ijcai2020p622,araci2019finbert}. We convert the logits output from FinBERT to probabilities of Positive, Negative and Neutral. The rest procedures are the same with the baseline. The comparison between these two can provide some evidence that whether better sentiment analysis brings better stock price prediction. 
+
+\textbf{FB Avg.} One advantage of the BERT models is that we can fine-tune it with our own data. Constrained by our data size and computing resources, we take the pooler output from the FinBERT model, instead of applying other deeper fine-tuning methods. The pool output of any piece of news has a shape of (768,). With truncating and padding, we take 50 pooler outputs of news per day, so the shape of input for each day is (50,768). For this FB Avg model, we simply average the 50 pooler outputs to get a daily representation with shape (1,768). Then we add a Dense(32) layer and a Dropout(0.3) layer on top of it, followed by the final Dense(1) output layer.   
+
+\textbf{FB Attention.} This model replaces the simple average step of FB Avg with weighted average using Self-Attention mechanism. The intuition is that some news or some aspects of the news may be more related with the change of stock price than other. The rest of model settings are the same with FB Avg.
+
+\textbf{FB Transformer.} The models above only use the information within a day. We can further extend the model to include the information from the historical news. For instance, a neutral sentiment after several positive sentiment may indicate things are getting worse, while a neutral sentiment after several negative sentiment may indicate things a getting better, and they may have different implications for stock price movements. Once we include the historical information, our task becomes a sequence-to-sequence task. Inspired by the success of transformers in sequence-to-sequence task tasks, we build a mini-transformer for our task.
+
+The architecture of our mini-transformer model is shown in 
+
+
+
+
+
+
+
 
 
 1) a lexicon-based sentiment analysis; 2) sentiment analysis output by FinBert a BERT model pre-trained on financial contents; 3) predicting based on pooler output of FinBert model; 4) predicting based on pooler output of FinBert model with attention mechanism; 5) predict based on pooler output 
@@ -220,7 +263,9 @@ According to the prediction from the model, we can decide to buy, sell, or do no
 \subsection{Customized loss function (Optional)}
 The last two steps can be combined together using a customized loss function which is directly related to the investment performance. Models trained under this customized loss function may generate better investment results.
 
+\section{Result and discussion 1 - 2 pages}
 
+\section{Conclusion 3-5 sentences}
 
 % See Table~\ref{tab:accents} for an example of a table and its caption.
 % \textbf{Do not override the default caption sizes.}
