@@ -237,7 +237,7 @@ In this section, we compare five methods of extracting and processing the inform
 
 \textbf{FB Transformer.} The models above only use the information within a day. We can further extend the model to include the information from the historical news. For instance, a neutral sentiment after several positive sentiment may indicate things are getting worse, while a neutral sentiment after several negative sentiment may indicate things a getting better, and they may have different implications for stock price movements. Once we include the historical information, our task becomes a sequence-to-sequence task. Inspired by the success of transformers in sequence-to-sequence task tasks, we build a mini-transformer for our task.
 
-The architecture of our mini-transformer model is shown in 
+The architecture of our mini-transformer model is shown in Figure \ref{fig:fb_transformer}. Similar to \citet{NIPS2017_3f5ee243}, we have two inputs: tokenized text data and lagged outputs. Both inputs contain information for the past 60 days. For example, on day T, we use both the news and the historical returns of S\&P 500 Index from day T-59 to day T as input to predict return on day T+1. Then we roll them for 1 day to predict returns on day T+2 and so on. The text input has a shape of (60,50,768), and the historical return input has a shape of (60,). Also, we add a Multi-head Attention layer to both text and return input and combine the 
 
 
 
@@ -362,10 +362,16 @@ The last two steps can be combined together using a customized loss function whi
 \bibliography{anthology,custom}
 \bibliographystyle{acl_natbib}
 
-% \appendix
+\appendix
 
-% \section{Example Appendix}
-% \label{sec:appendix}
+\section{Appendix}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{path/to/your/image}
+  \caption{The architecture of FB Transformer}
+  \label{fig:fb_transformer}
+  \end{figure}
 
 % This is a section in the appendix.
 
