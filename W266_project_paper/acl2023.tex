@@ -168,21 +168,17 @@ These instructions should be used both for papers submitted for review and for f
 
 \section{Introduction 1 page}
 
-News-based stock price prediction usually consists of two tasks: sentiment analysis of the news and predicting the price movement based on the sentiment. With the help of all kinds of pre-trained BERT models, sentiment analysis has become less challenging. However, accurate sentiment analysis does not necessarily bring accurate stock price prediction. This paper compares several predicting methods based on either the sentiment analysis results or the pooler output of a BERT model pre-trained on financial news and articles. The best result comes from the model which has a simplified transformer structure and combines historical news and stock price returns. 
+Financial news is among the forces that moves the stock market. Investors have be trying to build models based on news text information to predict the movements of stock market. Such practice relys on usually consists of two tasks: sentiment analysis of the news and predicting the price movement based on the sentiment scores. The Transformer models have brought NLP tasks to a new level. With the help of pre-trained BERT models, sentiment analysis of financial news now can be done at higher accuracy with less challenge.
+
+However, better sentiment analysis does not necessarily bring better stock price prediction and investment results. As shown in this paper, during the outbreak of Cov-19 in 2020, while negative sentiments were still dominating the news media, stock market rebounded with the help of monetary easing and fiscal stimulus.  
+
+With the help of all kinds of pre-trained BERT models, sentiment analysis has become less challenging. However, accurate sentiment analysis does not necessarily bring accurate stock price prediction. This paper compares several predicting methods based on either the sentiment analysis results or the pooler output of a BERT model pre-trained on financial news and articles. The best result comes from the model which has a simplified transformer structure and combines historical news and stock price returns. 
 
 \section{Background 1/2 page}
 
 It's no news that news is used to predict stock price movements(e.g. \citealp{Tetlock:2007}). Since it's an interdisciplinary task involving NLP and financial engineering, the solution evolves with the progress on either side. On the NLP side, the essential problem is how to extract numeric information from the text of news. Early work used the bag-of-words as text representation to perform sentiment analysis for the news. For example, \citet{Schumaker:2009} examines a predictive machine learning approach for financial news article analysis using several different textual representations: bag of words, noun phrases, and named entities. Later work adopted word embeddings such as Word2Vec.\citet{Hu:2018} propose a Hybrid Attention Networks to predict the stock trend based on the sequence of recent related news and employ self-paced learning for effective and efficient learning. They use a pre-trained Word2Vec embedding layer to calculate the embedded vector for each word and then average all the words' vectors to construct a news vector. Other techniques include character-based neural language model \citep{dos-santos-pinheiro-dras-2017-stock} and topic modeling \citep{nguyen-shirai-2015-topic}. Since BERT became the state-of-art NLP model, researchers have been trying to apply it to the task above(see \citet{sawhney-etal-2021-quantitative} and \citet{tsutsumi-utsuro-2022-detecting}). 
 
 As with other applications of BERT, fine-tuning may further improve the performance. A lot of recent works have been focused on further training BERT on financial domain corpora(see \citet{araci2019finbert}) or even training BERT from scratch on financial domain corpora(see \citet{yang2020finbert} and \citet{ijcai2020p622}). \citet{peng-etal-2021-domain} points out that continual training from the original BERT model is more effective than domain-specific pretraining from scratch. This paper proposes a third option: fine-tuning with the stock price data. This can be done by retraining certain layers of BERT during the training for the prediction task. The process is similar to sentiment analysis, only the sentiment is labeled by the change in stock price.
-
-Focusing on the NLP part instead of the financial engineering part, this research aims to compare the performance of the following four model settings in predicting the direction of stock price movement:
-\begin{enumerate}
-    \item the original BERT;
-    \item BERT further trained with financial domain corpora;
-    \item BERT trained from scratch with financial domain corpora;
-    \item BERT to be fine-tuned with stock price data.
-\end{enumerate}
 
 
 \section{Methods 2-3 pages}
@@ -193,7 +189,7 @@ For stock prediction problems, the ultimate goal is to generate a signal S which
 
 Although the task can be viewed as a classification problem if we only predict whether the stock price is going up or down, however, the long-term uptrend of S\&P 500 index suggests there are more "up" days than "down" days, thus the samples are imbalanced. Some previous research tries to avoid this problem by using other thresholds instead of zero \citep{xu-cohen-2018-stock}. However, the choices of these thresholds are arbitrary and are difficult to justify. For example, if we set a thresholds at 0 and 1, is it reasonable to label 0.99 and 1.01 to different classes while 0.01 and 0.99 the same class? Essentially, the returns of stocks are continuous rather than discrete, so we prefer to view it as a regression problem.
 
-In our context, the problem is how to use the news as input to generate a continuous signal S, where $S \in [-1,1]$. This enables us to directly simulate the investment returns by multiply S with stock returns. The benefit of this treatment is that we can use investment performance metrics such as Sharpe Ratio in addition to statistical metrics such as correlation and MSE to evaluate the predictions.
+In our context, the problem is how to use the news as input to generate a continuous signal S, where $S \in [-1,1]$. This enables us to directly simulate the investment returns by multiply S with stock returns. The benefit of this treatment is that we can use investment performance metrics such as Sharpe Ratio in addition to statistical metrics such as correlation and MSE to evaluate the predictions. Outputs or predictions from different models are first standardized into z-score and transferred with $tanh$ function to generate signal S. In this way the financial metrics from different models are comparable.
 
 
 \subsection{Data}
@@ -220,6 +216,7 @@ In this section, we compare five methods of extracting and processing the inform
   FinBERT Senti & FinBERT & Prob(P)-Prob(N) & Intraday simple average \\
   FB Avg & FinBERT & Pooler & Intraday simple average \\
   FB Attention & FinBERT & Pooler & Intraday attention\\
+  FB LSTM & FinBERT & Pooler &  Intra-\&inter-day attention\\
   FB Transformer & FinBERT & Pooler &  Intra-\&inter-day attention\\
   \hline
   \end{tabular}
@@ -227,7 +224,7 @@ In this section, we compare five methods of extracting and processing the inform
   \label{tab:experiment_details}
 \end{table*}
 
-\textbf{Baseline: lexicon-based sentiment analysis.} We use a lexicon-based sentiment analysis similar to \citet{hao2021} as the baseline. The NLTK pacakge provides a version of VADER \citep{Hutto_Gilbert_2014} sentiment analysis. It generates the probabilities of Positive, Negative, and Neutral. We take Prob(Positive)-Prob(Negative) and average the values within the same day as the signal $S$, which automatically satisfies $S \in [-1,1]$.
+\textbf{Baseline: lexicon-based sentiment analysis.} We use a lexicon-based sentiment analysis similar to \citet{hao2021} as the baseline. The NLTK pacakge provides a version of VADER \citep{Hutto_Gilbert_2014} sentiment analysis. It generates the probabilities of Positive, Negative, and Neutral. We take Prob(Positive)-Prob(Negative) and average the values within the same day as the output.
 
 \textbf{FinBERT Senti.} FinBERT is a BERT model pre-trained on financial communication text \citep{yang2020finbert}. Previous research shows this type of pre-trained BERT models outperforms bag-of-word or rule-based models \citep{yang2020finbert,ijcai2020p622,araci2019finbert}. We convert the logits output from FinBERT to probabilities of Positive, Negative and Neutral. The rest procedures are the same with the baseline. The comparison between these two can provide some evidence that whether better sentiment analysis brings better stock price prediction. 
 
@@ -237,9 +234,13 @@ In this section, we compare five methods of extracting and processing the inform
 
 \textbf{FB Transformer.} The models above only use the information within a day. We can further extend the model to include the information from the historical news. For instance, a neutral sentiment after several positive sentiment may indicate things are getting worse, while a neutral sentiment after several negative sentiment may indicate things a getting better, and they may have different implications for stock price movements. Once we include the historical information, our task becomes a sequence-to-sequence task. Inspired by the success of transformers in sequence-to-sequence task tasks, we build a mini-transformer for our task.
 
-The architecture of our mini-transformer model is shown in Figure \ref{fig:fb_transformer}. Similar to \citet{NIPS2017_3f5ee243}, we have two inputs: tokenized text data and lagged outputs. Both inputs contain information for the past 60 days. For example, on day T, we use both the news and the historical returns of S\&P 500 Index from day T-59 to day T as input to predict return on day T+1. Then we roll them for 1 day to predict returns on day T+2 and so on. The text input has a shape of (60,50,768), and the historical return input has a shape of (60,). Also, we add a Multi-head Attention layer to both text and return input and combine the 
+The architecture of our mini-transformer model is shown in Figure \ref{fig:fb_transformer}. Similar to \citet{NIPS2017_3f5ee243}, we have two inputs: tokenized text data and lagged outputs. Both inputs contain information for the past 60 days. For example, on day T, we use both the news and the historical returns of S\&P 500 Index from day T-59 to day T as input to predict return on day T+1. Then we roll them for 1 day to predict returns on day T+2 and so on. The text input has a shape of (60,50,768), with the first dimension indicating the number of days, the second the number of news per day and the third the token dimension. The historical return input has a shape of (60,). We also add a Multi-head Attention layer to each of the text and return input. Then we use a Cross Attention layer to connect the two inputs and feed the output to three Dense layer to generate the final output.
 
+Major differences between our mini transformer with the original one include: 1\) due to limited data size, we only have 1 attention layer each instead of 6. As a result, the residual connection (Add\&Norm) is not needed. 2\) Insead of adding positional encodings to the inputs, we include the positional index as a seperate feature. The reason is that, unlike \citet{NIPS2017_3f5ee243}, which is trained from scratch, our model is based on a pretrained model and we don't have enough data to perform a deep fine-tuning. Simply adding positional encodings to the tokens will distort the pretrained tokens. Since the length of sequence is fixed at 60, we can use a integer sequence from 1 to 60 each divided by 60 as the positional index. 3\) The original transformer use a causal attention in the decoder to prevent the use of future data. Since we already prevent the use of future data with a rolling window, our model uses a global attention.
 
+\textbf{FB LSTM.} "RNN+Attention" was the state-of-art architecture to build seq2seq models before Transformers. We also build an LSTM+Attention model to compare with the mini transformer model. The architecture is shown in Figure \ref{fig:fb_lstm}. It has the same inputs structure with FB Transformer and the use of attention mechanism is similar. Since the LSTM handles the sequence order, the positional encodings are no longer needed.
+
+\section{Result and discussion 1 - 2 pages}
 
 
 
@@ -371,7 +372,14 @@ The last two steps can be combined together using a customized loss function whi
   \includegraphics[width=\textwidth]{path/to/your/image}
   \caption{The architecture of FB Transformer}
   \label{fig:fb_transformer}
-  \end{figure}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{path/to/your/image}
+  \caption{The architecture of FB LSTM}
+  \label{fig:fb_lstm}
+\end{figure}
 
 % This is a section in the appendix.
 
