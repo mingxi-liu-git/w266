@@ -218,7 +218,7 @@ In this section, we compare five methods of extracting and processing the inform
   \centering
   \begin{tabular}{|c|c|c|c|}
   \hline
-  Model & NLP Model & Output from NLP model & Aggregation method \\
+  Models & NLP Model & Output from NLP model & Aggregation method \\
   \hline
   Lexicon Senti & Vader (lexicon) & Prob(P)-Prob(N) & Intraday simple average \\
   FinBERT Senti & FinBERT & Prob(P)-Prob(N) & Intraday simple average \\
@@ -258,13 +258,11 @@ We use KerasTuner\footnote{\url{https://keras.io/keras_tuner/}} to tune hyperpar
 
   \begin{table*}
   \centering
-  \begin{tabular}{cccccccc}
-     & \multicolumn{4}{c}{Statistical Metrics} & \multicolumn{3}{c}{Financial Metrics} \\
+  \begin{tabular}{c|cccc|ccc}
+     & \multicolumn{4}{|c|}{Statistical Metrics} & \multicolumn{3}{c}{Financial Metrics} \\
     \multirow{2}{2em}{Models} & \multirow{2}{2em}{Pearson Corr.} & \multirow{2}{2em}{Spearman Corr.} & \multirow{2}{*}{MAE} & \multirow{2}{*}{MSE} & \multirow{2}{2em}{Total Return} & \multirow{2}{2em}{Sharpe Ratio} & \multirow{2}{2em}{Max Drawdown} \\
     & & & & & & & \\
     \hline
-    & & & & & & & \\
-
     Target & 100.00\% & 100.00\% & n.a. & n.a. & 13.53\% & 0.36 & -41.44\% \\
     Lex\_sentiment & 2.24\% & -0.26\% & n.a. & n.a. & 8.98\% & 0.33 & -20.18\% \\
     FinBert\_Sentiment & -1.29\% & -2.91\% & n.a. & n.a. & 2.63\% & 0.09 & -22.94\% \\
@@ -272,9 +270,10 @@ We use KerasTuner\footnote{\url{https://keras.io/keras_tuner/}} to tune hyperpar
     FT\_Attention & 4.13\% & 4.35\% & 0.0150 & 0.0005 & 14.15\% & 1.21 & -9.27\% \\
     FT\_Attention\_LSTM & 14.24\% & 6.49\% & 0.0882 & 0.0135 & 41.44\% & 1.57 & -12.32\% \\
     FT\_Transformer & 13.01\% & 12.60\% & 0.0170 & 0.0005 & 58.27\% & 2.15 & -6.17\% \\
-    \hline
+
     \end{tabular}
-      \caption{Table caption goes here.}
+    \label{tab:results}
+    \caption{Table caption goes here.}
   \end{table*}
 
 
