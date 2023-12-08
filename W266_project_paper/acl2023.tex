@@ -197,7 +197,7 @@ For stock prediction problems, the ultimate goal is to generate a signal $S$ whi
 
 Although the task can be viewed as a classification problem if we only predict whether the stock price is going up or down, however, the long-term uptrend of S\&P 500 index suggests there are more "up" days than "down" days, thus the samples are imbalanced. Some previous research tries to avoid this problem by using other thresholds instead of zero \citep{xu-cohen-2018-stock}. However, the choices of these thresholds are arbitrary and are difficult to justify. For example, if we set thresholds at 0 and 1, is it reasonable to label 0.99 and 1.01 as different classes while 0.01 and 0.99 the same class? Essentially, the returns of stocks are continuous rather than discrete, so we prefer to view it as a regression problem.
 
-In our context, the problem is how to use the news as input to generate a continuous signal S, where $S \in [-1,1]$. This enables us to directly simulate the investment returns by multiplying $S$ with stock returns. Outputs or predictions from different models are first standardized into z-score and transferred with $tanh$ function to generate signal S. In this way the financial metrics from different models are comparable. The benefit of this simulated trading is that we can use investment performance metrics such as the Sharpe Ratio and Max Drawdown in addition to statistical metrics to evaluate the predictions. The Sharpe Ratio is a measure of risk-adjusted return. It compares the average return of an investment to its standard deviation. Max Drawdown is the largest peak-to-trough decline in the value of an investment or trading strategy over a specific period. Both are two key metrics used to evaluate the risk and return of an investment or trading strategy. 
+In our context, the problem is how to use the news as input to generate a continuous signal $S$, where $S \in [-1,1]$. This enables us to directly simulate the investment returns by multiplying $S$ with stock returns. Outputs or predictions from different models are first standardized into z-score and transferred with $tanh$ function to generate signal S. In this way the financial metrics from different models are comparable. The benefit of this simulated trading is that we can use investment performance metrics such as the Sharpe Ratio and Max Drawdown in addition to statistical metrics to evaluate the predictions. The Sharpe Ratio is a measure of risk-adjusted return. It compares the average return of an investment to its standard deviation. Max Drawdown is the largest peak-to-trough decline in the value of an investment or trading strategy over a specific period. Both are two key metrics used to evaluate the risk and return of an investment or trading strategy. 
 
 
 \subsection{Data}
@@ -254,8 +254,6 @@ We use KerasTuner\footnote{\url{https://keras.io/keras_tuner/}} to tune hyperpar
 
 \section{Result and discussion 1 - 2 pages}
 
-
-
   \begin{table*}
   \centering
   \begin{tabular}{c|cccc|ccc}
@@ -264,22 +262,43 @@ We use KerasTuner\footnote{\url{https://keras.io/keras_tuner/}} to tune hyperpar
     & & & & & & & \\
     \hline
     Target & 100.00\% & 100.00\% & n.a. & n.a. & 13.53\% & 0.36 & -41.44\% \\
-    Lex\_sentiment & 2.24\% & -0.26\% & n.a. & n.a. & 8.98\% & 0.33 & -20.18\% \\
-    FinBert\_Sentiment & -1.29\% & -2.91\% & n.a. & n.a. & 2.63\% & 0.09 & -22.94\% \\
-    FT\_Avg & 1.22\% & 1.29\% & 0.0867 & 0.0089 & 2.63\% & 0.10 & -27.11\% \\
-    FT\_Attention & 4.13\% & 4.35\% & 0.0150 & 0.0005 & 14.15\% & 1.21 & -9.27\% \\
-    FT\_Attention\_LSTM & 14.24\% & 6.49\% & 0.0882 & 0.0135 & 41.44\% & 1.57 & -12.32\% \\
-    FT\_Transformer & 13.01\% & 12.60\% & 0.0170 & 0.0005 & 58.27\% & 2.15 & -6.17\% \\
+    Lexicon Senti & 2.24\% & -0.26\% & n.a. & n.a. & 8.98\% & 0.33 & -20.18\% \\
+    FinBERT Senti & -1.29\% & -2.91\% & n.a. & n.a. & 2.63\% & 0.09 & -22.94\% \\
+    FB Avg & 1.22\% & 1.29\% & 0.0867 & 0.0089 & 2.63\% & 0.10 & -27.11\% \\
+    FB Attention & 4.13\% & 4.35\% & 0.0150 & 0.0005 & 14.15\% & 1.21 & -9.27\% \\
+    FB LSTM & 14.24\% & 6.49\% & 0.0882 & 0.0135 & 41.44\% & 1.57 & -12.32\% \\
+    FB Transformer & 13.01\% & 12.60\% & 0.0170 & 0.0005 & 58.27\% & 2.15 & -6.17\% \\
 
     \end{tabular}
     \label{tab:results}
     \caption{Table caption goes here.}
   \end{table*}
 
+The statistical and financial metrics of the models are shown in Table \ref{tab:results}. Key observations from the results are:
+
+\begin{enumerate}
+  \item FB Transformer performs the best from both statistical and financial perspective. It has the highest correlation with the target and lowest predicting errors. It also brings the highest return in absolute terms as well as in risk-adjusted measures.
+  \item The two models with encoder-decoder architecture (FB Transformer, FB LSTM) outperform other models, suggesting the inclusion of historical news and stock price changes help improve the predictive power of the model.
+  \item FB Attention outperforms FB Avg, suggesting replacing simple average with Self-Attention based weighted average improves the model.
+  \item Finally, models based on the final sentiment classifications (Lexicon Senti and FinBERT Senti) underperform those based on Pooler tokens, suggesting the sentiment alone does not provide enough information for predicting the stock movements. FinBERT Senti even underperforms Lexicon Senti, an evidence that better sentiment analysis does not guarantee better stock price prediction.
+\end{enumerate}
 
 
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{total_returns.png}
+    \caption{Simulated total wealth of \$1 investment based on different model signals}
+    \label{fig:total_return}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{signal_compare.png}
+    \caption{Signals of FB Transformer adjusted much faster than FinBERT Senti in Mar 2020}
+    \label{fig:signal_compare}
+  \end{subfigure}
+\end{figure}
 
-
+Figure \ref{fig:total_return} provides a more intuitive illustration of the performance of the models. It shows if we invested 1 dollar based on the signals of different models at the begin of the test period, how much it would become over time. The figure shows the major divergence among different models happened during the period from March 2020 to Jun 2020. During this time, S\&P 500 Index rebounded strongly with the help of unprecedented monetary easing and fiscal stimulus, but the number of new cases in US increased to 10,000 per day, which naturally dragged the overall sentiment in financial media. 
 
 
 
@@ -404,16 +423,23 @@ The last two steps can be combined together using a customized loss function whi
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{path/to/your/image}
+  \includegraphics[width=\textwidth]{transformer_structure.png}
   \caption{The architecture of FB Transformer}
   \label{fig:fb_transformer}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{path/to/your/image}
+  \includegraphics[width=\textwidth]{lstm.png}
   \caption{The architecture of FB LSTM}
   \label{fig:fb_lstm}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{cov_vs_senti.png}
+  \caption{The overall sentiment was dragged by new Cov-19 case numbers while the stock market rebounded strongly during March 2020}
+  \label{fig:cov_vs_senti}
 \end{figure}
 
 % This is a section in the appendix.
