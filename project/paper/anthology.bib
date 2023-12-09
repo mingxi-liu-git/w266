@@ -1,0 +1,136 @@
+% Please download the latest anthology.bib from the following URL:
+%
+%     http://aclweb.org/anthology/anthology.bib
+%
+% From the command line, this can be done with curl or wget. 
+%
+% If you are using Overleaf, go to "New File -> From External URL".
+% You will then be able to use it directly, and to periodically update it by clicking Overleaf's convenient "refresh" button.
+
+@inproceedings{tsutsumi-utsuro-2022-detecting,
+    title = "Detecting Causes of Stock Price Rise and Decline by Machine Reading Comprehension with {BERT}",
+    author = "Tsutsumi, Gakuto  and
+      Utsuro, Takehito",
+    booktitle = "Proceedings of the 4th Financial Narrative Processing Workshop @LREC2022",
+    month = jun,
+    year = "2022",
+    address = "Marseille, France",
+    publisher = "European Language Resources Association",
+    url = "https://aclanthology.org/2022.fnp-1.4",
+    pages = "27--35",
+    abstract = "In this paper, we focused on news reported when stock prices fluctuate significantly. The news reported when stock prices change is a very useful source of information on what factors cause stock prices to change. However, because it is manually produced, not all events that cause stock prices to change are necessarily reported. Thus, in order to provide investors with information on those causes of stock price changes, it is necessary to develop a system to collect information on events that could be closely related to the stock price changes of certain companies from the Internet. As the first step towards developing such a system, this paper takes an approach of employing a BERT-based machine reading comprehension model, which extracts causes of stock price rise and decline from news reports on stock price changes. In the evaluation, the approach of using the title of the article as the question of machine reading comprehension performs well. It is shown that the fine-tuned machine reading comprehension model successfully detects additional causes of stock price rise and decline other than those stated in the title of the article.",
+}
+
+@inproceedings{xu-cohen-2018-stock,
+    title = "Stock Movement Prediction from Tweets and Historical Prices",
+    author = "Xu, Yumo  and
+      Cohen, Shay B.",
+    booktitle = "Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2018",
+    address = "Melbourne, Australia",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/P18-1183",
+    doi = "10.18653/v1/P18-1183",
+    pages = "1970--1979",
+    abstract = "Stock movement prediction is a challenging problem: the market is highly stochastic, and we make temporally-dependent predictions from chaotic data. We treat these three complexities and present a novel deep generative model jointly exploiting text and price signals for this task. Unlike the case with discriminative or topic modeling, our model introduces recurrent, continuous latent variables for a better treatment of stochasticity, and uses neural variational inference to address the intractable posterior inference. We also provide a hybrid objective with temporal auxiliary to flexibly capture predictive dependencies. We demonstrate the state-of-the-art performance of our proposed model on a new stock movement prediction dataset which we collected.",
+}
+
+@inproceedings{shah-etal-2023-trillion,
+    title = "Trillion Dollar Words: A New Financial Dataset, Task {\&} Market Analysis",
+    author = "Shah, Agam  and
+      Paturi, Suvan  and
+      Chava, Sudheer",
+    booktitle = "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2023",
+    address = "Toronto, Canada",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.acl-long.368",
+    doi = "10.18653/v1/2023.acl-long.368",
+    pages = "6664--6679",
+    abstract = "Monetary policy pronouncements by Federal Open Market Committee (FOMC) are a major driver of financial market returns. We construct the largest tokenized and annotated dataset of FOMC speeches, meeting minutes, and press conference transcripts in order to understand how monetary policy influences financial markets. In this study, we develop a novel task of hawkish-dovish classification and benchmark various pre-trained language models on the proposed dataset. Using the best-performing model (RoBERTa-large), we construct a measure of monetary policy stance for the FOMC document release days. To evaluate the constructed measure, we study its impact on the treasury market, stock market, and macroeconomic indicators. Our dataset, models, and code are publicly available on Huggingface and GitHub under CC BY-NC 4.0 license.",
+}
+
+@inproceedings{dos-santos-pinheiro-dras-2017-stock,
+    title = "Stock Market Prediction with Deep Learning: A Character-based Neural Language Model for Event-based Trading",
+    author = "dos Santos Pinheiro, Leonardo  and
+      Dras, Mark",
+    booktitle = "Proceedings of the Australasian Language Technology Association Workshop 2017",
+    month = dec,
+    year = "2017",
+    address = "Brisbane, Australia",
+    url = "https://aclanthology.org/U17-1001",
+    pages = "6--15",
+}
+
+@inproceedings{sawhney-etal-2021-quantitative,
+    title = "Quantitative Day Trading from Natural Language using Reinforcement Learning",
+    author = "Sawhney, Ramit  and
+      Wadhwa, Arnav  and
+      Agarwal, Shivam  and
+      Shah, Rajiv Ratn",
+    booktitle = "Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies",
+    month = jun,
+    year = "2021",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.naacl-main.316",
+    doi = "10.18653/v1/2021.naacl-main.316",
+    pages = "4018--4030",
+    abstract = "It is challenging to design profitable and practical trading strategies, as stock price movements are highly stochastic, and the market is heavily influenced by chaotic data across sources like news and social media. Existing NLP approaches largely treat stock prediction as a classification or regression problem and are not optimized to make profitable investment decisions. Further, they do not model the temporal dynamics of large volumes of diversely influential text to which the market responds quickly. Building on these shortcomings, we propose a deep reinforcement learning approach that makes time-aware decisions to trade stocks while optimizing profit using textual data. Our method outperforms state-of-the-art in terms of risk-adjusted returns in trading simulations on two benchmarks: Tweets (English) and financial news (Chinese) pertaining to two major indexes and four global stock markets. Through extensive experiments and studies, we build the case for our method as a tool for quantitative trading.",
+}
+
+@inproceedings{peng-etal-2021-domain,
+    title = "Is Domain Adaptation Worth Your Investment? Comparing {BERT} and {F}in{BERT} on Financial Tasks",
+    author = "Peng, Bo  and
+      Chersoni, Emmanuele  and
+      Hsu, Yu-Yin  and
+      Huang, Chu-Ren",
+    booktitle = "Proceedings of the Third Workshop on Economics and Natural Language Processing",
+    month = nov,
+    year = "2021",
+    address = "Punta Cana, Dominican Republic",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.econlp-1.5",
+    doi = "10.18653/v1/2021.econlp-1.5",
+    pages = "37--44",
+    abstract = "With the recent rise in popularity of Transformer models in Natural Language Processing, research efforts have been dedicated to the development of domain-adapted versions of BERT-like architectures. In this study, we focus on FinBERT, a Transformer model trained on text from the financial domain. By comparing its performances with the original BERT on a wide variety of financial text processing tasks, we found continual pretraining from the original model to be the more beneficial option. Domain-specific pretraining from scratch, conversely, seems to be less effective.",
+}
+
+@inproceedings{nguyen-shirai-2015-topic,
+    title = "Topic Modeling based Sentiment Analysis on Social Media for Stock Market Prediction",
+    author = "Nguyen, Thien Hai  and
+      Shirai, Kiyoaki",
+    editor = "Zong, Chengqing  and
+      Strube, Michael",
+    booktitle = "Proceedings of the 53rd Annual Meeting of the Association for Computational Linguistics and the 7th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)",
+    month = jul,
+    year = "2015",
+    address = "Beijing, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/P15-1131",
+    doi = "10.3115/v1/P15-1131",
+    pages = "1354--1364",
+}
+
+@inproceedings{ding-etal-2014-using,
+    title = "Using Structured Events to Predict Stock Price Movement: An Empirical Investigation",
+    author = "Ding, Xiao  and
+      Zhang, Yue  and
+      Liu, Ting  and
+      Duan, Junwen",
+    editor = "Moschitti, Alessandro  and
+      Pang, Bo  and
+      Daelemans, Walter",
+    booktitle = "Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing ({EMNLP})",
+    month = oct,
+    year = "2014",
+    address = "Doha, Qatar",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/D14-1148",
+    doi = "10.3115/v1/D14-1148",
+    pages = "1415--1425",
+}
+
+

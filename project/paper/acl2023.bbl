@@ -1,0 +1,100 @@
+\begin{thebibliography}{12}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Araci(2019)}]{araci2019finbert}
+Dogu Araci. 2019.
+\newblock \href {http://arxiv.org/abs/1908.10063} {Finbert: Financial sentiment
+  analysis with pre-trained language models}.
+
+\bibitem[{Ding et~al.(2014)Ding, Zhang, Liu, and Duan}]{ding-etal-2014-using}
+Xiao Ding, Yue Zhang, Ting Liu, and Junwen Duan. 2014.
+\newblock \href {https://doi.org/10.3115/v1/D14-1148} {Using structured events
+  to predict stock price movement: An empirical investigation}.
+\newblock In \emph{Proceedings of the 2014 Conference on Empirical Methods in
+  Natural Language Processing ({EMNLP})}, pages 1415--1425, Doha, Qatar.
+  Association for Computational Linguistics.
+
+\bibitem[{dos Santos~Pinheiro and
+  Dras(2017)}]{dos-santos-pinheiro-dras-2017-stock}
+Leonardo dos Santos~Pinheiro and Mark Dras. 2017.
+\newblock \href {https://aclanthology.org/U17-1001} {Stock market prediction
+  with deep learning: A character-based neural language model for event-based
+  trading}.
+\newblock In \emph{Proceedings of the Australasian Language Technology
+  Association Workshop 2017}, pages 6--15, Brisbane, Australia.
+
+\bibitem[{Hu et~al.(2018)Hu, Liu, Bian, Liu, and Liu}]{Hu:2018}
+Ziniu Hu, Weiqing Liu, Jiang Bian, Xuanzhe Liu, and Tie-Yan Liu. 2018.
+\newblock \href {https://doi.org/10.1145/3159652.3159690} {Listening to chaotic
+  whispers: A deep learning framework for news-oriented stock trend
+  prediction}.
+\newblock In \emph{Proceedings of the Eleventh ACM International Conference on
+  Web Search and Data Mining}, WSDM '18, page 261–269, New York, NY, USA.
+  Association for Computing Machinery.
+
+\bibitem[{Liu et~al.(2020)Liu, Huang, Huang, Li, and Zhao}]{ijcai2020p622}
+Zhuang Liu, Degen Huang, Kaiyu Huang, Zhuang Li, and Jun Zhao. 2020.
+\newblock \href {https://doi.org/10.24963/ijcai.2020/622} {Finbert: A
+  pre-trained financial language representation model for financial text
+  mining}.
+\newblock In \emph{Proceedings of the Twenty-Ninth International Joint
+  Conference on Artificial Intelligence, {IJCAI-20}}, pages 4513--4519.
+  International Joint Conferences on Artificial Intelligence Organization.
+\newblock Special Track on AI in FinTech.
+
+\bibitem[{Nguyen and Shirai(2015)}]{nguyen-shirai-2015-topic}
+Thien~Hai Nguyen and Kiyoaki Shirai. 2015.
+\newblock \href {https://doi.org/10.3115/v1/P15-1131} {Topic modeling based
+  sentiment analysis on social media for stock market prediction}.
+\newblock In \emph{Proceedings of the 53rd Annual Meeting of the Association
+  for Computational Linguistics and the 7th International Joint Conference on
+  Natural Language Processing (Volume 1: Long Papers)}, pages 1354--1364,
+  Beijing, China. Association for Computational Linguistics.
+
+\bibitem[{Peng et~al.(2021)Peng, Chersoni, Hsu, and
+  Huang}]{peng-etal-2021-domain}
+Bo~Peng, Emmanuele Chersoni, Yu-Yin Hsu, and Chu-Ren Huang. 2021.
+\newblock \href {https://doi.org/10.18653/v1/2021.econlp-1.5} {Is domain
+  adaptation worth your investment? comparing {BERT} and {F}in{BERT} on
+  financial tasks}.
+\newblock In \emph{Proceedings of the Third Workshop on Economics and Natural
+  Language Processing}, pages 37--44, Punta Cana, Dominican Republic.
+  Association for Computational Linguistics.
+
+\bibitem[{Sawhney et~al.(2021)Sawhney, Wadhwa, Agarwal, and
+  Shah}]{sawhney-etal-2021-quantitative}
+Ramit Sawhney, Arnav Wadhwa, Shivam Agarwal, and Rajiv~Ratn Shah. 2021.
+\newblock \href {https://doi.org/10.18653/v1/2021.naacl-main.316} {Quantitative
+  day trading from natural language using reinforcement learning}.
+\newblock In \emph{Proceedings of the 2021 Conference of the North American
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies}, pages 4018--4030, Online. Association for Computational
+  Linguistics.
+
+\bibitem[{Schumaker and Chen(2009)}]{Schumaker:2009}
+Robert~P. Schumaker and Hsinchun Chen. 2009.
+\newblock \href {https://doi.org/10.1145/1462198.1462204} {Textual analysis of
+  stock market prediction using breaking financial news: The azfin text
+  system}.
+\newblock \emph{ACM Trans. Inf. Syst.}, 27(2).
+
+\bibitem[{Tetlock(2007)}]{Tetlock:2007}
+Paul~C. Tetlock. 2007.
+\newblock \href {http://www.jstor.org/stable/4622297} {Giving content to
+  investor sentiment: The role of media in the stock market}.
+\newblock \emph{The Journal of Finance}, 62(3):1139--1168.
+
+\bibitem[{Tsutsumi and Utsuro(2022)}]{tsutsumi-utsuro-2022-detecting}
+Gakuto Tsutsumi and Takehito Utsuro. 2022.
+\newblock \href {https://aclanthology.org/2022.fnp-1.4} {Detecting causes of
+  stock price rise and decline by machine reading comprehension with {BERT}}.
+\newblock In \emph{Proceedings of the 4th Financial Narrative Processing
+  Workshop @LREC2022}, pages 27--35, Marseille, France. European Language
+  Resources Association.
+
+\bibitem[{Yang et~al.(2020)Yang, UY, and Huang}]{yang2020finbert}
+Yi~Yang, Mark Christopher~Siy UY, and Allen Huang. 2020.
+\newblock \href {http://arxiv.org/abs/2006.08097} {Finbert: A pretrained
+  language model for financial communications}.
+
+\end{thebibliography}
